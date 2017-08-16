@@ -1,5 +1,6 @@
 package ingresso;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -18,11 +19,11 @@ public class GerenciadorDeSessaoTest {
 	@Test
 	public void garanteQueNaoDevePermitirSessaoNoMesmoHorario() {
 
-		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI");
+		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", BigDecimal.ONE);
 		
-		LocalTime horario = LocalTime.parse("10:00:00");
+		LocalTime horario = LocalTime.now();
 
-		Sala sala = new Sala("");
+		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
 
 		List<Sessao> sessoes = Arrays.asList(new Sessao(horario, filme, sala));
 
@@ -33,15 +34,15 @@ public class GerenciadorDeSessaoTest {
 		Assert.assertFalse(gerenciador.cabe(sessao));
 
 	}
-
+	
 	@Test
 	public void garanteQueNaoDevePermitirSessoesTerminandoDentroDoHorarioDeUmaSessaoJaExistente() {
 
-		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI");
+		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI",  BigDecimal.ONE);
 		
-		LocalTime horario = LocalTime.parse("10:00:00");
+		LocalTime horario = LocalTime.now();
 
-		Sala sala = new Sala("");
+		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
 
 		List<Sessao> sessoes = Arrays.asList(new Sessao(horario, filme, sala));
 
@@ -56,11 +57,11 @@ public class GerenciadorDeSessaoTest {
 	@Test
 	public void garanteQueNaoDevePermitirSessoesIniciandoDentroDoHorarioDeUmaSessaoJaExistente() {
 
-		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI");
+		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI",  BigDecimal.ONE);
 		
-		LocalTime horario = LocalTime.parse("10:00:00");
+		LocalTime horario = LocalTime.now();
 
-		Sala sala = new Sala("");
+		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
 
 		List<Sessao> sessoesDaSala = Arrays.asList(new Sessao(horario, filme, sala));
 
@@ -74,15 +75,15 @@ public class GerenciadorDeSessaoTest {
 	@Test
 	public void garanteQueDevePermitirUmaInsercaoEntreDoisFilmes() {
 
-		Sala sala = new Sala("");
+		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
 		
-		Filme filme1 = new Filme("Rogue One", Duration.ofMinutes(90), "SCI-FI");
+		Filme filme1 = new Filme("Rogue One", Duration.ofMinutes(90), "SCI-FI", BigDecimal.ONE);
 		
 		LocalTime dezHoras = LocalTime.parse("10:00:00");
 		
 		Sessao sessaoDasDez = new Sessao(dezHoras, filme1, sala);
 		
-		Filme filme2 = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI");
+		Filme filme2 = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", BigDecimal.ONE);
 		
 		LocalTime dezoitoHoras = LocalTime.parse("18:00:00");
 		
@@ -96,4 +97,21 @@ public class GerenciadorDeSessaoTest {
 
 	}	
 
+	@Test
+	public void oPrecoDaSessaoDeveSerIgualASomaDoPrecoDaSalaMaisOPrecoDoFilme(){
+		
+		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
+		
+		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", new BigDecimal("12.0"));
+		
+		BigDecimal somaDosPrecosDaSalaEFilme = sala.getPreco().add(filme.getPreco());
+		
+		Sessao sessao = new Sessao (LocalTime.now(), filme, sala);
+		
+		Assert.assertEquals(somaDosPrecosDaSalaEFilme, sessao.getPreco());
+		
+
+	}
+	
+	
 }
