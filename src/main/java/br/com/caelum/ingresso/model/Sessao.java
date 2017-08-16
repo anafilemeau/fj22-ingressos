@@ -22,7 +22,9 @@ public class Sessao {
 	@ManyToOne
 	private Filme filme;
 
-	
+	/**
+	 * @deprecated hibernate only
+	 */
 	public Sessao(){
 	}
 	
