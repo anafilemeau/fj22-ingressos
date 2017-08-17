@@ -21,7 +21,7 @@ public class GerenciadorDeSessaoTest {
 
 		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI", BigDecimal.ONE);
 		
-		LocalTime horario = LocalTime.now();
+		LocalTime horario = LocalTime.parse("10:00:00");
 
 		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
 
@@ -59,7 +59,7 @@ public class GerenciadorDeSessaoTest {
 
 		Filme filme = new Filme("Rogue One", Duration.ofMinutes(120), "SCI-FI",  BigDecimal.ONE);
 		
-		LocalTime horario = LocalTime.now();
+		LocalTime horario = LocalTime.parse("10:00:00");
 
 		Sala sala = new Sala("Eldorado - IMAX", BigDecimal.ONE);
 
