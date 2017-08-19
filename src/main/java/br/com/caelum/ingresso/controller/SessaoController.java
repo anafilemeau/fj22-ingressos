@@ -89,7 +89,7 @@ public class SessaoController {
 		
 	}
 	
-	@GetMapping ("/admin/sessao/{id}/lugares")
+	@GetMapping ("/sessao/{id}/lugares")
 	public ModelAndView lugaresNaSessao(@PathVariable("id") Integer sessaoId) {
 		
 		ModelAndView modelAndView = new ModelAndView("sessao/lugares");

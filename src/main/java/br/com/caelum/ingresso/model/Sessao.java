@@ -23,15 +23,6 @@ public class Sessao {
 	@GeneratedValue
 	private Integer id;
 	private LocalTime horario;
-	
-	
-	public Set<Ingresso> getIngressos() {
-		return ingressos;
-	}
-
-	public void setIngressos(Set<Ingresso> ingressos) {
-		this.ingressos = ingressos;
-	}
 
 	@ManyToOne
 	private Sala sala;
@@ -107,6 +98,14 @@ public class Sessao {
 	
 	public boolean isDisponivel(Lugar lugar){
 		return ingressos.stream().map(Ingresso::getLugar).noneMatch(l-> l.equals(lugar));
+	}
+
+	public Set<Ingresso> getIngressos() {
+		return ingressos;
+	}
+
+	public void setIngressos(Set<Ingresso> ingressos) {
+		this.ingressos = ingressos;
 	}
 
 }
